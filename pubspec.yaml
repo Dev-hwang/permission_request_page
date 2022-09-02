@@ -1,0 +1,28 @@
+name: permission_request_page
+description: A Widget that explains why app users need permissions and asks if they want to grant permissions.
+version: 1.0.0
+homepage: https://github.com/Dev-hwang/permission_request_page
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+  flutter: ">=2.8.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  permission_handler: ^10.0.0
+  shared_preferences: ^2.0.15
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.4
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.pravera.permission_request_page
+        pluginClass: PermissionRequestPagePlugin
+      ios:
+        pluginClass: PermissionRequestPagePlugin
