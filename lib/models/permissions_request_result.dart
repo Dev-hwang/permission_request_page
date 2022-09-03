@@ -18,11 +18,11 @@ class PermissionsRequestResult {
   /// List of denied permissions.
   final List<PermissionData> deniedPermissions;
 
-  /// All permissions requested.
+  /// List of all requested permissions.
   List<PermissionData> get permissions =>
       grantedPermissions + deferredPermissions + deniedPermissions;
 
-  /// Whether all permissions are granted.
+  /// Whether the required permissions are granted.
   bool get isGranted => deniedPermissions.isEmpty;
 
   /// Whether any of the permissions are denied.
