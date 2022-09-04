@@ -1,15 +1,20 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:permission_request_page/models/permission_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/init_result.dart';
 import 'models/permission_data.dart';
+import 'models/permission_type.dart';
 import 'permission_request_page_utils.dart';
+
+export 'models/init_result.dart';
+export 'models/permission_data.dart';
+export 'models/permission_type.dart';
 
 /// The initialization function that is granted the required permissions and is to be executed.
 typedef InitFunction = Future<InitResult> Function();
@@ -187,18 +192,24 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
     VoidCallback? onPositiveButtonPressed,
     VoidCallback? onNegativeButtonPressed,
   }) {
-    Widget dialogActionBuilder({
+    dialogActionBuilder({
       required String text,
       required VoidCallback? onPressed,
       bool positive = false,
     }) {
+      final actionChild = Text(text);
+      actionEvent() {
+        onPressed?.call();
+        Navigator.of(context).pop();
+      }
+
       if (Platform.isAndroid) {
-        return TextButton(child: Text(text), onPressed: onPressed);
+        return TextButton(child: actionChild, onPressed: actionEvent);
       } else {
         return CupertinoDialogAction(
           isDefaultAction: positive,
-          child: Text(text),
-          onPressed: onPressed,
+          child: actionChild,
+          onPressed: actionEvent,
         );
       }
     }
@@ -254,8 +265,157 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return ValueListenableBuilder<bool>(
+      valueListenable: _isSplashViewVisible,
+      builder: (_, value, __) {
+        return PageTransitionSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (
+            Widget child,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return SharedAxisTransition(
+              transitionType: SharedAxisTransitionType.horizontal,
+              animation: animation,
+              secondaryAnimation: secondaryAnimation,
+              child: child,
+            );
+          },
+          child: value ? _buildSplashView() : _buildPermissionView(),
+        );
+      },
+    );
+  }
+
+  Widget _buildSplashView() {
+    Widget splashView;
+    if (widget.splashViewBuilder != null) {
+      splashView = widget.splashViewBuilder!();
+    } else {
+      splashView = Center(
+        child: widget.appIconAssetPath == null
+            ? const Icon(Icons.android_rounded, size: 80)
+            : Image.asset(widget.appIconAssetPath!, height: 80),
+      );
+    }
+
+    return FadeTransition(opacity: _fadeAnimation, child: splashView);
+  }
+
+  Widget _buildPermissionView() {
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _buildPermissionViewHeader(),
+          Expanded(child: _buildPermissionListView()),
+          _buildPermissionRequestButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPermissionViewHeader() {
+    if (widget.permissionViewHeaderBuilder != null) {
+      return widget.permissionViewHeaderBuilder!.call();
+    }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 15, 0, 10),
+          child: widget.appIconAssetPath == null
+              ? const Icon(Icons.android_rounded, size: 50)
+              : Image.asset(widget.appIconAssetPath!, height: 50),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
+          child: Text(
+            '어플리케이션 사용을 위해\n아래 권한들이 필요로 합니다.',
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.merge(widget.requestMessageStyle),
+          ),
+        ),
+        const Divider(),
+      ],
+    );
+  }
+
+  Widget _buildPermissionListView() {
+    return ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      itemCount: _filteredPermissions.length,
+      itemBuilder: (_, index) =>
+          _buildPermissionListItem(_filteredPermissions[index]),
+    );
+  }
+
+  Widget _buildPermissionListItem(PermissionData permission) {
+    if (widget.permissionListItemBuilder != null) {
+      return widget.permissionListItemBuilder!.call(permission);
+    }
+
+    final permissionNameStyle = Theme.of(context)
+        .textTheme
+        .subtitle1
+        ?.copyWith(height: 1.2)
+        .merge(widget.permissionNameStyle);
+    final permissionDescStyle = Theme.of(context)
+        .textTheme
+        .bodyText2
+        ?.merge(widget.permissionDescStyle);
+    final permissionIconColor =
+        widget.permissionIconColor ?? permissionNameStyle?.color;
+
+    final permissionName = permission.permissionType
+        .defaultName(necessary: permission.isNecessary);
+    final permissionDesc =
+        permission.description ?? permission.permissionType.defaultDesc();
+    final permissionIcon =
+        permission.permissionType.defaultIcon(color: permissionIconColor);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          permissionIcon,
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(permissionName, style: permissionNameStyle),
+                const SizedBox(height: 2),
+                Text(permissionDesc, style: permissionDescStyle),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPermissionRequestButton() {
+    final style = ButtonStyle(
+      shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    );
+
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 56),
+      child: ElevatedButton(
+        style: style,
+        child: Text('확인', style: Theme.of(context).textTheme.button),
+        onPressed: () => _requestPermissions(_filteredPermissions),
+      ),
+    );
   }
 
   @override
