@@ -95,6 +95,8 @@ class PermissionRequestPageUtils {
           if (!await methodChannel.canDrawOverlays() && p.isNecessary) {
             willOpenOverlayPermissionSettings = true;
           }
+        } else {
+          await permissionObj.request();
         }
       } else {
         await permissionObj.request();
