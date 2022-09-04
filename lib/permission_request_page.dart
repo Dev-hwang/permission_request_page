@@ -53,15 +53,23 @@ class PermissionRequestPage extends StatefulWidget {
   final String? appIconAssetPath;
 
   /// The text style of the request message to be displayed in the view header.
+  ///
+  /// Reference `Theme.of(context).textTheme.headline6` by default.
   final TextStyle? requestMessageStyle;
 
   /// The color of the permission icon to be displayed in the list item.
+  ///
+  /// Reference `Theme.of(context).textTheme.bodyText2.color` by default.
   final Color? permissionIconColor;
 
   /// The text style of the permission name to be displayed in the list item.
+  ///
+  /// Reference `Theme.of(context).textTheme.subtitle1` by default.
   final TextStyle? permissionNameStyle;
 
   /// The text style of the permission description to be displayed in the list item.
+  ///
+  /// Reference `Theme.of(context).textTheme.bodyText2` by default.
   final TextStyle? permissionDescStyle;
 
   /// Builder for building custom splash view.
@@ -334,7 +342,7 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: Text(
-            '어플리케이션 사용을 위해\n아래 권한들이 필요로 합니다.',
+            '어플리케이션 사용을 위해\n다음 권한의 허용이 필요합니다.',
             style: Theme.of(context)
                 .textTheme
                 .headline6
@@ -370,7 +378,7 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
         .bodyText2
         ?.merge(widget.permissionDescStyle);
     final permissionIconColor =
-        widget.permissionIconColor ?? permissionNameStyle?.color;
+        widget.permissionIconColor ?? permissionDescStyle?.color;
 
     final permissionName = permission.permissionType
         .defaultName(necessary: permission.isNecessary);
