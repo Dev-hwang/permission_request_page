@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:permission_request_page/localization.dart';
 
 /// Defines the types of permissions that can be requested.
 ///
@@ -200,127 +201,127 @@ extension PermissionTypeExtension on PermissionType {
     String strName;
     switch (this) {
       case PermissionType.calendar:
-        strName = '캘린더';
+        strName = Localization.permissionName('calendar');
         break;
       case PermissionType.camera:
-        strName = '카메라';
+        strName = Localization.permissionName('camera');
         break;
       case PermissionType.contacts:
-        strName = '연락처';
+        strName = Localization.permissionName('contacts');
         break;
       case PermissionType.location:
-        strName = '위치';
+        strName = Localization.permissionName('location');
         break;
       case PermissionType.locationAlways:
-        strName = '위치-백그라운드';
+        strName = Localization.permissionName('locationAlways');
         break;
       case PermissionType.mediaLibrary:
-        strName = '미디어';
+        strName = Localization.permissionName('mediaLibrary');
         break;
       case PermissionType.microphone:
-        strName = '마이크';
+        strName = Localization.permissionName('microphone');
         break;
       case PermissionType.phone:
-        strName = '전화';
+        strName = Localization.permissionName('phone');
         break;
       case PermissionType.photos:
-        strName = '갤러리';
+        strName = Localization.permissionName('photos');
         break;
       case PermissionType.reminders:
-        strName = '리마인더';
+        strName = Localization.permissionName('reminders');
         break;
       case PermissionType.sensors:
-        strName = '센서';
+        strName = Localization.permissionName('sensors');
         break;
       case PermissionType.sms:
-        strName = '메시지';
+        strName = Localization.permissionName('sms');
         break;
       case PermissionType.speech:
-        strName = '음성';
+        strName = Localization.permissionName('speech');
         break;
       case PermissionType.storage:
-        strName = '저장소';
+        strName = Localization.permissionName('storage');
         break;
       case PermissionType.notification:
-        strName = '알림';
+        strName = Localization.permissionName('notification');
         break;
       case PermissionType.accessMediaLocation:
-        strName = '미디어 위치';
+        strName = Localization.permissionName('accessMediaLocation');
         break;
       case PermissionType.activityRecognition:
-        strName = '활동 인식';
+        strName = Localization.permissionName('activityRecognition');
         break;
       case PermissionType.bluetooth:
-        strName = '블루투스';
+        strName = Localization.permissionName('bluetooth');
         break;
       case PermissionType.bluetoothScan:
-        strName = '블루투스 검색';
+        strName = Localization.permissionName('bluetoothScan');
         break;
       case PermissionType.bluetoothAdvertise:
-        strName = '블루투스 광고';
+        strName = Localization.permissionName('bluetoothAdvertise');
         break;
       case PermissionType.bluetoothConnect:
-        strName = '블루투스 연결';
+        strName = Localization.permissionName('bluetoothConnect');
         break;
       case PermissionType.systemAlertWindow:
-        strName = '다른 앱 위에 표시';
+        strName = Localization.permissionName('systemAlertWindow');
         break;
       case PermissionType.unknown:
-        strName = '알 수 없음';
+        strName = Localization.permissionName('unknown');
     }
 
-    return strName + (necessary ? ' (필수)' : '');
+    return strName + ' ${Localization.necessary(necessary)}';
   }
 
   /// Returns the default permission description.
   String defaultDesc() {
     switch (this) {
       case PermissionType.calendar:
-        return '캘린더 데이터에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('calendar');
       case PermissionType.camera:
-        return '카메라를 사용하기 위해 필요합니다.';
+        return Localization.permissionDesc('camera');
       case PermissionType.contacts:
-        return '연락처 데이터에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('contacts');
       case PermissionType.location:
-        return '위치 서비스를 제공하기 위해 필요합니다.';
+        return Localization.permissionDesc('location');
       case PermissionType.locationAlways:
-        return '백그라운드 위치 서비스를 제공하기 위해 필요합니다.';
+        return Localization.permissionDesc('locationAlways');
       case PermissionType.mediaLibrary:
-        return '미디어 라이브러리에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('mediaLibrary');
       case PermissionType.microphone:
-        return '마이크를 사용하기 위해 필요합니다.';
+        return Localization.permissionDesc('microphone');
       case PermissionType.phone:
-        return '디바이스 상태를 읽거나 통화 기능을 제공하기 위해 필요합니다.';
+        return Localization.permissionDesc('phone');
       case PermissionType.photos:
-        return '갤러리 데이터에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('photos');
       case PermissionType.reminders:
-        return '리마인더에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('reminders');
       case PermissionType.sensors:
-        return '센서에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('sensors');
       case PermissionType.sms:
-        return '메시지 데이터에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('sms');
       case PermissionType.speech:
-        return '음성 서비스를 제공하기 위해 필요합니다.';
+        return Localization.permissionDesc('speech');
       case PermissionType.storage:
-        return '스마트폰 내부 저장소에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('storage');
       case PermissionType.notification:
-        return '노티피케이션을 제공하기 위해 필요합니다.';
+        return Localization.permissionDesc('notification');
       case PermissionType.accessMediaLocation:
-        return '미디어 파일에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('accessMediaLocation');
       case PermissionType.activityRecognition:
-        return '사용자의 활동을 인식하기 위해 필요합니다.';
+        return Localization.permissionDesc('activityRecognition');
       case PermissionType.bluetooth:
-        return '블루투스 장치에 접근하기 위해 필요합니다.';
+        return Localization.permissionDesc('bluetooth');
       case PermissionType.bluetoothScan:
-        return '블루투스 장치를 검색하기 위해 필요합니다.';
+        return Localization.permissionDesc('bluetoothScan');
       case PermissionType.bluetoothAdvertise:
-        return '블루투스 장치를 광고하기 위해 필요합니다.';
+        return Localization.permissionDesc('bluetoothAdvertise');
       case PermissionType.bluetoothConnect:
-        return '블루투스 장치와 연결하기 위해 필요합니다.';
+        return Localization.permissionDesc('bluetoothConnect');
       case PermissionType.systemAlertWindow:
-        return '다른 앱 위에 앱 컨텐츠를 표시하기 위해 필요합니다.';
+        return Localization.permissionDesc('systemAlertWindow');
       case PermissionType.unknown:
-        return '알 수 없는 권한입니다.';
+        return Localization.permissionDesc('unknown');
     }
   }
 

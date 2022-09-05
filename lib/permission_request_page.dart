@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'localization.dart';
 import 'models/init_result.dart';
 import 'models/permission_data.dart';
 import 'models/permission_type.dart';
@@ -149,16 +150,17 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
         return;
       }
 
-      const String contentPrefix = '어플리케이션을 사용하려면 필수 표시된 권한(';
-      const String contentSuffix = ')을 허용해야 합니다.';
+      final contentBuffer = StringBuffer(
+          Localization.dictionary['msgWhenPermissionDenied'].toString());
+      contentBuffer.write('[');
       final deniedPermissions = result.deniedPermissions;
-      final sb = StringBuffer();
-      for (var i = 0; i < deniedPermissions.length; i++) {
-        if (i != 0) sb.write(', ');
-        sb.write(deniedPermissions[i].permissionType.defaultName());
+      for (var i = 0; i < result.deniedPermissions.length; i++) {
+        if (i != 0) contentBuffer.write(',');
+        contentBuffer.write(deniedPermissions[i].permissionType.defaultName());
       }
+      contentBuffer.write(']');
 
-      _showSystemDialog(content: contentPrefix + sb.toString() + contentSuffix);
+      _showSystemDialog(content: contentBuffer.toString());
     }).whenComplete(() {
       _isRequestingPermissions = false;
     });
@@ -177,9 +179,10 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
     } else {
       if (initResult.showsError) {
         _showSystemDialog(
-          content: initResult.errorMessage ?? '앱 초기화에 실패하여 앱을 시작할 수 없습니다.',
-          positiveButtonText: '재시도',
-          negativeButtonText: '종료',
+          content: initResult.errorMessage ??
+              Localization.dictionary['appInitializationErrMsg'],
+          positiveButtonText: Localization.dictionary['dialogRetryButtonText'],
+          negativeButtonText: Localization.dictionary['dialogExitButtonText'],
           onPositiveButtonPressed: _startAppInitialization,
           onNegativeButtonPressed: () {
             if (Platform.isAndroid) {
@@ -231,14 +234,16 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
 
         if (onNegativeButtonPressed != null) {
           final negativeAction = dialogActionBuilder(
-            text: negativeButtonText ?? '취소',
+            text: negativeButtonText ??
+                Localization.dictionary['dialogNegativeButtonText'],
             onPressed: onNegativeButtonPressed,
             positive: false,
           );
           dialogActions.add(negativeAction);
         }
         final positiveAction = dialogActionBuilder(
-          text: positiveButtonText ?? '확인',
+          text: positiveButtonText ??
+              Localization.dictionary['dialogPositiveButtonText'],
           onPressed: onPositiveButtonPressed,
           positive: true,
         );
@@ -342,7 +347,8 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: Text(
-            '어플리케이션 사용을 위해\n다음 권한의 허용이 필요합니다.',
+            Localization.dictionary['permissionViewHeaderText'] ??
+                'The following permissions are required to use the application.',
             style: Theme.of(context)
                 .textTheme
                 .headline6
@@ -420,7 +426,10 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
       constraints: const BoxConstraints(minHeight: 56),
       child: ElevatedButton(
         style: style,
-        child: Text('확인', style: Theme.of(context).textTheme.button),
+        child: Text(
+          Localization.dictionary['permissionRequestButtonText'] ?? 'NEXT',
+          style: Theme.of(context).textTheme.button,
+        ),
         onPressed: () => _requestPermissions(_filteredPermissions),
       ),
     );
