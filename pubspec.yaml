@@ -1,5 +1,5 @@
 name: permission_request_page
-description: A Widget that explains why app users need permissions and asks if they want to grant permissions.
+description: A widget that explains and requests why app permissions are needed.
 version: 1.0.0
 homepage: https://github.com/Dev-hwang/permission_request_page
 
