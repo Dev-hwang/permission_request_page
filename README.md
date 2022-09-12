@@ -1,4 +1,9 @@
-A widget that explains and requests why app permissions are needed.
+Is it annoying to create a page that explains permissions to users or implement permission request
+functionality? If so, try this plugin! This plugin simplifies the implementation of the above
+features. If you don't like the default template, you can customize it using the builder defined
+in `PermissionRequestPage`.
+
+![image](https://user-images.githubusercontent.com/47127353/189646593-de45c0a9-8cab-4cdf-86a3-600fad7f3503.png)
 
 ## Getting started
 
@@ -11,7 +16,7 @@ dependencies:
 
 ## How to use
 
-1. Declare the required permissions in your app.
+Declare the required permissions in your app.
 
 ```dart
 const List<PermissionData> _kPermission = [
@@ -33,7 +38,7 @@ const List<PermissionData> _kPermission = [
 ];
 ```
 
-2. Write an init function to execute when all required permissions are granted.
+Write an init function to execute when all required permissions are granted.
 
 ```dart
 class _SplashPageState extends State<SplashPage> {
@@ -59,7 +64,7 @@ class _SplashPageState extends State<SplashPage> {
 }
 ```
 
-3. Add a PermissionRequestPage widget under Scaffold.
+Add a PermissionRequestPage widget under Scaffold.
 
 ```dart
 class _SplashPageState extends State<SplashPage> {
@@ -80,7 +85,7 @@ class _SplashPageState extends State<SplashPage> {
 }
 ```
 
-4. Declare the permissions to use for each platform.
+Declare the permissions to use for each platform.
 
 ### :baby_chick: Android
 
