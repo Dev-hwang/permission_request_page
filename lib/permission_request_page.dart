@@ -351,7 +351,7 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
                 'The following permissions are required to use the application.',
             style: Theme.of(context)
                 .textTheme
-                .headline6
+                .titleLarge
                 ?.merge(widget.requestMessageStyle),
           ),
         ),
@@ -376,12 +376,12 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
 
     final permissionNameStyle = Theme.of(context)
         .textTheme
-        .subtitle1
+        .titleMedium
         ?.copyWith(height: 1.2)
         .merge(widget.permissionNameStyle);
     final permissionDescStyle = Theme.of(context)
         .textTheme
-        .bodyText2
+        .bodyMedium
         ?.merge(widget.permissionDescStyle);
     final permissionIconColor =
         widget.permissionIconColor ?? permissionDescStyle?.color;
@@ -418,7 +418,7 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
 
   Widget _buildPermissionRequestButton() {
     final style = ButtonStyle(
-      shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
+      shape: WidgetStateProperty.all(const RoundedRectangleBorder()),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
 
@@ -428,7 +428,7 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
         style: style,
         child: Text(
           Localization.dictionary['permissionRequestButtonText'] ?? 'NEXT',
-          style: Theme.of(context).textTheme.button,
+          style: Theme.of(context).textTheme.labelLarge,
         ),
         onPressed: () => _requestPermissions(_filteredPermissions),
       ),
