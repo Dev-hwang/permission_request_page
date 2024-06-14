@@ -81,7 +81,7 @@ class PermissionRequestPageUtils {
 
       if (Platform.isAndroid) {
         final androidInfo = await DeviceInfoPlugin().androidInfo;
-        final androidSdk = androidInfo.version.sdkInt ?? 0;
+        final androidSdk = androidInfo.version.sdkInt;
 
         if (permissionType == PermissionType.locationAlways) {
           // Android 11(API 수준 30) 이상일 때는 location 권한 먼저 요청한다.
@@ -153,7 +153,7 @@ class PermissionRequestPageUtils {
 
       if (Platform.isAndroid) {
         final androidInfo = await DeviceInfoPlugin().androidInfo;
-        final androidSdk = androidInfo.version.sdkInt ?? 0;
+        final androidSdk = androidInfo.version.sdkInt;
         if (androidSdk < 29 &&
             permissionType == PermissionType.activityRecognition) {
           continue;

@@ -270,7 +270,7 @@ extension PermissionTypeExtension on PermissionType {
         strName = Localization.permissionName('unknown');
     }
 
-    return strName + ' ${Localization.necessary(necessary)}';
+    return '$strName ${Localization.necessary(necessary)}';
   }
 
   /// Returns the default permission description.
@@ -329,7 +329,7 @@ extension PermissionTypeExtension on PermissionType {
   Permission toPermissionObj() {
     switch (this) {
       case PermissionType.calendar:
-        return Permission.calendar;
+        return Permission.calendarFullAccess;
       case PermissionType.camera:
         return Permission.camera;
       case PermissionType.contacts:

@@ -55,22 +55,22 @@ class PermissionRequestPage extends StatefulWidget {
 
   /// The text style of the request message to be displayed in the view header.
   ///
-  /// Reference `Theme.of(context).textTheme.headline6` by default.
+  /// Reference `Theme.of(context).textTheme.titleLarge` by default.
   final TextStyle? requestMessageStyle;
 
   /// The color of the permission icon to be displayed in the list item.
   ///
-  /// Reference `Theme.of(context).textTheme.bodyText2.color` by default.
+  /// Reference `Theme.of(context).textTheme.bodyMedium.color` by default.
   final Color? permissionIconColor;
 
   /// The text style of the permission name to be displayed in the list item.
   ///
-  /// Reference `Theme.of(context).textTheme.subtitle1` by default.
+  /// Reference `Theme.of(context).textTheme.titleMedium` by default.
   final TextStyle? permissionNameStyle;
 
   /// The text style of the permission description to be displayed in the list item.
   ///
-  /// Reference `Theme.of(context).textTheme.bodyText2` by default.
+  /// Reference `Theme.of(context).textTheme.bodyMedium` by default.
   final TextStyle? permissionDescStyle;
 
   /// Builder for building custom splash view.
@@ -171,10 +171,11 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
 
     final initResult = await widget.initFunction();
     if (initResult.complete) {
-      Timer(widget.splashDuration, () async {
-        await _animationController.reverse();
-        final route = MaterialPageRoute(builder: (_) => widget.nextPage);
-        Navigator.pushReplacement(context, route);
+      Timer(widget.splashDuration, () {
+        _animationController.reverse().then((_) {
+          final route = MaterialPageRoute(builder: (_) => widget.nextPage);
+          Navigator.pushReplacement(context, route);
+        });
       });
     } else {
       if (initResult.showsError) {
@@ -215,12 +216,12 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
       }
 
       if (Platform.isAndroid) {
-        return TextButton(child: actionChild, onPressed: actionEvent);
+        return TextButton(onPressed: actionEvent, child: actionChild);
       } else {
         return CupertinoDialogAction(
           isDefaultAction: positive,
-          child: actionChild,
           onPressed: actionEvent,
+          child: actionChild,
         );
       }
     }
