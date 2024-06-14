@@ -11,8 +11,8 @@ class Localization {
     }
   }
 
-  static String necessary(bool necessary) {
-    return necessary
+  static String necessary(bool isNecessary) {
+    return isNecessary
         ? dictionary['necessaryTrue']
         : dictionary['necessaryFalse'];
   }

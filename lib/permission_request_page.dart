@@ -375,23 +375,27 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
       return widget.permissionListItemBuilder!.call(permission);
     }
 
-    final permissionNameStyle = Theme.of(context)
+    final TextStyle? permissionNameStyle = Theme.of(context)
         .textTheme
         .titleMedium
         ?.copyWith(height: 1.2)
         .merge(widget.permissionNameStyle);
-    final permissionDescStyle = Theme.of(context)
+    final TextStyle? permissionDescStyle = Theme.of(context)
         .textTheme
         .bodyMedium
         ?.merge(widget.permissionDescStyle);
-    final permissionIconColor =
+    final Color? permissionIconColor =
         widget.permissionIconColor ?? permissionDescStyle?.color;
 
-    final permissionName = permission.permissionType
-        .defaultName(necessary: permission.isNecessary);
-    final permissionDesc =
+    String permissionName =
+        permission.permissionName ?? permission.permissionType.defaultName();
+    final bool isNecessary = permission.isNecessary;
+    if (isNecessary) {
+      permissionName += ' ${Localization.necessary(isNecessary)}';
+    }
+    final String permissionDesc =
         permission.description ?? permission.permissionType.defaultDesc();
-    final permissionIcon =
+    final Icon permissionIcon =
         permission.permissionType.defaultIcon(color: permissionIconColor);
 
     return Padding(
@@ -418,15 +422,13 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
   }
 
   Widget _buildPermissionRequestButton() {
-    final style = ButtonStyle(
-      shape: WidgetStateProperty.all(const RoundedRectangleBorder()),
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    );
-
     return ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 56),
       child: ElevatedButton(
-        style: style,
+        style: ButtonStyle(
+          shape: WidgetStateProperty.all(const RoundedRectangleBorder()),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
         child: Text(
           Localization.dictionary['permissionRequestButtonText'] ?? 'NEXT',
           style: Theme.of(context).textTheme.labelLarge,

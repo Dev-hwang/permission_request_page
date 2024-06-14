@@ -5,16 +5,19 @@ import 'package:permission_request_page/permission_request_page.dart';
 const List<PermissionData> _kPermission = [
   PermissionData(
     permissionType: PermissionType.location,
+    permissionName: 'Location',
     description: 'Required to provide location services.',
     isNecessary: true,
   ),
   PermissionData(
     permissionType: PermissionType.storage,
+    permissionName: 'Storage',
     description: 'Required to access the internal storage of the smartphone.',
     isNecessary: false,
   ),
   PermissionData(
     permissionType: PermissionType.notification,
+    permissionName: 'Notification',
     description: 'Required to provide notifications.',
     isNecessary: false,
   ),

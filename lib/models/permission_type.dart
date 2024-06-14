@@ -197,80 +197,55 @@ extension PermissionTypeExtension on PermissionType {
   }
 
   /// Returns the default permission name.
-  String defaultName({bool necessary = false}) {
-    String strName;
+  String defaultName() {
     switch (this) {
       case PermissionType.calendar:
-        strName = Localization.permissionName('calendar');
-        break;
+        return Localization.permissionName('calendar');
       case PermissionType.camera:
-        strName = Localization.permissionName('camera');
-        break;
+        return Localization.permissionName('camera');
       case PermissionType.contacts:
-        strName = Localization.permissionName('contacts');
-        break;
+        return Localization.permissionName('contacts');
       case PermissionType.location:
-        strName = Localization.permissionName('location');
-        break;
+        return Localization.permissionName('location');
       case PermissionType.locationAlways:
-        strName = Localization.permissionName('locationAlways');
-        break;
+        return Localization.permissionName('locationAlways');
       case PermissionType.mediaLibrary:
-        strName = Localization.permissionName('mediaLibrary');
-        break;
+        return Localization.permissionName('mediaLibrary');
       case PermissionType.microphone:
-        strName = Localization.permissionName('microphone');
-        break;
+        return Localization.permissionName('microphone');
       case PermissionType.phone:
-        strName = Localization.permissionName('phone');
-        break;
+        return Localization.permissionName('phone');
       case PermissionType.photos:
-        strName = Localization.permissionName('photos');
-        break;
+        return Localization.permissionName('photos');
       case PermissionType.reminders:
-        strName = Localization.permissionName('reminders');
-        break;
+        return Localization.permissionName('reminders');
       case PermissionType.sensors:
-        strName = Localization.permissionName('sensors');
-        break;
+        return Localization.permissionName('sensors');
       case PermissionType.sms:
-        strName = Localization.permissionName('sms');
-        break;
+        return Localization.permissionName('sms');
       case PermissionType.speech:
-        strName = Localization.permissionName('speech');
-        break;
+        return Localization.permissionName('speech');
       case PermissionType.storage:
-        strName = Localization.permissionName('storage');
-        break;
+        return Localization.permissionName('storage');
       case PermissionType.notification:
-        strName = Localization.permissionName('notification');
-        break;
+        return Localization.permissionName('notification');
       case PermissionType.accessMediaLocation:
-        strName = Localization.permissionName('accessMediaLocation');
-        break;
+        return Localization.permissionName('accessMediaLocation');
       case PermissionType.activityRecognition:
-        strName = Localization.permissionName('activityRecognition');
-        break;
+        return Localization.permissionName('activityRecognition');
       case PermissionType.bluetooth:
-        strName = Localization.permissionName('bluetooth');
-        break;
+        return Localization.permissionName('bluetooth');
       case PermissionType.bluetoothScan:
-        strName = Localization.permissionName('bluetoothScan');
-        break;
+        return Localization.permissionName('bluetoothScan');
       case PermissionType.bluetoothAdvertise:
-        strName = Localization.permissionName('bluetoothAdvertise');
-        break;
+        return Localization.permissionName('bluetoothAdvertise');
       case PermissionType.bluetoothConnect:
-        strName = Localization.permissionName('bluetoothConnect');
-        break;
+        return Localization.permissionName('bluetoothConnect');
       case PermissionType.systemAlertWindow:
-        strName = Localization.permissionName('systemAlertWindow');
-        break;
+        return Localization.permissionName('systemAlertWindow');
       case PermissionType.unknown:
-        strName = Localization.permissionName('unknown');
+        return Localization.permissionName('unknown');
     }
-
-    return '$strName ${Localization.necessary(necessary)}';
   }
 
   /// Returns the default permission description.

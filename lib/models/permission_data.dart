@@ -5,12 +5,16 @@ class PermissionData {
   /// Constructs an instance of [PermissionData].
   const PermissionData({
     required this.permissionType,
+    this.permissionName,
     this.description,
     this.isNecessary = false,
   });
 
   /// The type of permission to request.
   final PermissionType permissionType;
+
+  /// The permission name that will be displayed on the screen.
+  final String? permissionName;
 
   /// The description of permission to request.
   final String? description;
