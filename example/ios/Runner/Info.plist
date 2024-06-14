@@ -51,5 +51,7 @@
     <string>Required to provide location services.</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>Required to provide location services.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

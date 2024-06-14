@@ -6,112 +6,108 @@ import 'package:permission_request_page/localization.dart';
 ///
 /// It works the same as the permission_handler plugin's [Permission] class.
 enum PermissionType {
-  /// Android: Calendar
+  /// Permission for accessing the device's calendar.
   ///
+  /// Android: Calendar
   /// iOS: Calendar (Events)
   calendar,
 
-  /// Android: Camera
+  /// Permission for accessing the device's camera.
   ///
+  /// Android: Camera
   /// iOS: Photos (Camera Roll and Camera)
   camera,
 
-  /// Android: Contacts
+  /// Permission for accessing the device's contacts.
   ///
+  /// Android: Contacts
   /// iOS: AddressBook
   contacts,
 
-  /// Android: Fine and Coarse Location
+  /// Permission for accessing the device's location.
   ///
+  /// Android: Fine and Coarse Location
   /// iOS: CoreLocation (Always and WhenInUse)
   location,
 
-  /// Android: Background Location
+  /// Permission for accessing the device's location when the app is running in
+  /// the background.
   ///
+  /// Android: Background Location
   /// iOS: CoreLocation (Always)
   locationAlways,
 
-  /// Android: None
-  ///
-  /// iOS: MPMediaLibrary
+  /// Permission for accessing the device's media library. (iOS 9.3+ only)
   mediaLibrary,
 
-  /// Android: Microphone
-  ///
-  /// iOS: Microphone
+  /// Permission for accessing the device's microphone.
   microphone,
 
-  /// Android: Phone
-  ///
-  /// iOS: Nothing
+  /// Permission for accessing the device's phone state. (Android only)
   phone,
 
-  /// Android: Nothing
-  ///
-  /// iOS: Photos
+  /// Permission for accessing the device's photos.
   photos,
 
-  /// Android: Nothing
-  ///
-  /// iOS: Reminders
+  /// Permission for accessing the device's reminders. (iOS only)
   reminders,
 
-  /// Android: Body Sensors
+  /// Permission for accessing the device's sensors.
   ///
+  /// Android: Body Sensors
   /// iOS: CoreMotion
   sensors,
 
-  /// Android: SMS
-  ///
-  /// iOS: Nothing
+  /// Permission for sending and reading SMS messages. (Android only)
   sms,
 
-  /// Android: Microphone
+  /// Permission for accessing speech recognition.
   ///
+  /// Android: Microphone
   /// iOS: Speech
   speech,
 
-  /// Android: External Storage
+  /// Permission for accessing external storage.
   ///
+  /// Android: External Storage
   /// iOS: Access to folders like `Documents` or `Downloads`.
   storage,
 
-  /// Android: Notification
-  ///
-  /// iOS: Notification
+  /// Permission for pushing notifications.
   notification,
 
-  /// Android: Allows an application to access any geographic locations
-  /// persisted in the user's shared collection.
+  /// Permission for accessing the device's media library.
+  ///
+  /// Android 10+ (API 29+)
   accessMediaLocation,
 
-  /// Android: Activity Recognition
+  /// Permission for accessing the activity recognition.
   ///
-  /// iOS: Nothing
+  /// Android 10+ (API 29+)
   activityRecognition,
 
+  /// Permission for accessing the device's bluetooth adapter state.
+  ///
   /// iOS 13 and above: The authorization state of Core Bluetooth manager.
   /// When running < iOS 13 or Android this is always allowed.
   bluetooth,
 
-  /// Android: Allows the user to look for Bluetooth devices (e.g. BLE peripherals).
+  /// Permission for scanning for Bluetooth devices.
   ///
-  /// iOS: Nothing
+  /// Android 12+ (API 31+)
   bluetoothScan,
 
-  /// Android: Allows the user to make this device discoverable to other Bluetooth devices.
+  /// Permission for advertising Bluetooth devices.
   ///
-  /// iOS: Nothing
+  /// Android 12+ (API 31+)
   bluetoothAdvertise,
 
-  /// Android: Allows the user to connect with already paired Bluetooth devices.
+  /// Permission for connecting to Bluetooth devices.
   ///
-  /// iOS: Nothing
+  /// Android 12+ (API 31+)
   bluetoothConnect,
 
-  /// Android: Allows an app to create windows shown on top of all other apps.
-  ///
-  /// iOS: Nothing
+  /// Permission for creating system alert window. (Android only)
   systemAlertWindow,
 
   /// The unknown only used for return type, never requested.
@@ -304,7 +300,7 @@ extension PermissionTypeExtension on PermissionType {
   Permission toPermissionObj() {
     switch (this) {
       case PermissionType.calendar:
-        return Permission.calendarFullAccess;
+        return Permission.calendar;
       case PermissionType.camera:
         return Permission.camera;
       case PermissionType.contacts:

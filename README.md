@@ -23,19 +23,19 @@ const List<PermissionData> _kPermission = [
   PermissionData(
     permissionType: PermissionType.location,
     permissionName: 'Location',
-    description: 'Required to provide location services.',
+    description: 'Permission for accessing the device\'s location.',
     isNecessary: true,
   ),
   PermissionData(
     permissionType: PermissionType.storage,
     permissionName: 'Storage',
-    description: 'Required to access the internal storage of the smartphone.',
+    description: 'Permission for accessing external storage.',
     isNecessary: false,
   ),
   PermissionData(
     permissionType: PermissionType.notification,
     permissionName: 'Notification',
-    description: 'Required to provide notifications.',
+    description: 'Permission for pushing notifications.',
     isNecessary: false,
   ),
 ];

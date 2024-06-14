@@ -32,13 +32,24 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  target 'RunnerTests' do
-    inherit! :search_paths
-  end
+#   target 'RunnerTests' do
+#     inherit! :search_paths
+#   end
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
+    # Add
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+        '$(inherited)',
+
+        # See the table below to add macros for permissions to use in your app.
+        'PERMISSION_LOCATION=1',
+        'PERMISSION_NOTIFICATIONS=1'
+      ]
+    end
+
     flutter_additional_ios_build_settings(target)
   end
 end
