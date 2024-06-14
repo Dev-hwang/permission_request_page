@@ -41,6 +41,14 @@ const List<PermissionData> _kPermission = [
 ];
 ```
 
+```dart
+const CustomText _kCustomText = CustomText(
+  permissionViewHeaderText: 'The following permissions are required to use the application.',
+  permissionRequestButtonText: 'NEXT',
+  popupTextWhenPermissionDenied: 'To use the application, you must grant the following permissions: ',
+);
+```
+
 Write an init function to execute when all required permissions are granted.
 
 ```dart
@@ -80,6 +88,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: PermissionRequestPage(
         permissions: _kPermission,
+        customText: _kCustomText,
         initFunction: _initFunction,
         nextPage: Container(),
       ),
@@ -230,20 +239,20 @@ post_install do |installer|
 end
 ```
 
-| Permission                        | Info.plist                                                                                                    | Macro                                |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| PermissionType.calendar           | NSCalendarsUsageDescription                                                                                   | PERMISSION_EVENTS                    |
-| PermissionType.reminders          | NSRemindersUsageDescription                                                                                   | PERMISSION_REMINDERS                 |
-| PermissionType.contacts           | NSContactsUsageDescription                                                                                    | PERMISSION_CONTACTS                  |
-| PermissionType.camera             | NSCameraUsageDescription                                                                                      | PERMISSION_CAMERA                    |
-| PermissionType.microphone         | NSMicrophoneUsageDescription                                                                                  | PERMISSION_MICROPHONE                |
-| PermissionType.speech             | NSSpeechRecognitionUsageDescription                                                                           | PERMISSION_SPEECH_RECOGNIZER         |
-| PermissionType.photos             | NSPhotoLibraryUsageDescription                                                                                | PERMISSION_PHOTOS                    |
-| PermissionType.location           | NSLocationUsageDescription, NSLocationAlwaysAndWhenInUseUsageDescription, NSLocationWhenInUseUsageDescription | PERMISSION_LOCATION                  |
-| PermissionType.notification       | PermissionGroupNotification                                                                                   | PERMISSION_NOTIFICATIONS             |
-| PermissionType.mediaLibrary       | NSAppleMusicUsageDescription, kTCCServiceMediaLibrary                                                         | PERMISSION_MEDIA_LIBRARY             |
-| PermissionType.sensors            | NSMotionUsageDescription                                                                                      | PERMISSION_SENSORS                   |
-| PermissionType.bluetooth          | NSBluetoothAlwaysUsageDescription, NSBluetoothPeripheralUsageDescription                                      | PERMISSION_BLUETOOTH                 |
+| Permission                  | Info.plist                                                                                                    | Macro                        |
+|-----------------------------|---------------------------------------------------------------------------------------------------------------|------------------------------|
+| PermissionType.calendar     | NSCalendarsUsageDescription                                                                                   | PERMISSION_EVENTS            |
+| PermissionType.reminders    | NSRemindersUsageDescription                                                                                   | PERMISSION_REMINDERS         |
+| PermissionType.contacts     | NSContactsUsageDescription                                                                                    | PERMISSION_CONTACTS          |
+| PermissionType.camera       | NSCameraUsageDescription                                                                                      | PERMISSION_CAMERA            |
+| PermissionType.microphone   | NSMicrophoneUsageDescription                                                                                  | PERMISSION_MICROPHONE        |
+| PermissionType.speech       | NSSpeechRecognitionUsageDescription                                                                           | PERMISSION_SPEECH_RECOGNIZER |
+| PermissionType.photos       | NSPhotoLibraryUsageDescription                                                                                | PERMISSION_PHOTOS            |
+| PermissionType.location     | NSLocationUsageDescription, NSLocationAlwaysAndWhenInUseUsageDescription, NSLocationWhenInUseUsageDescription | PERMISSION_LOCATION          |
+| PermissionType.notification | PermissionGroupNotification                                                                                   | PERMISSION_NOTIFICATIONS     |
+| PermissionType.mediaLibrary | NSAppleMusicUsageDescription, kTCCServiceMediaLibrary                                                         | PERMISSION_MEDIA_LIBRARY     |
+| PermissionType.sensors      | NSMotionUsageDescription                                                                                      | PERMISSION_SENSORS           |
+| PermissionType.bluetooth    | NSBluetoothAlwaysUsageDescription, NSBluetoothPeripheralUsageDescription                                      | PERMISSION_BLUETOOTH         |
 
 ## Support
 

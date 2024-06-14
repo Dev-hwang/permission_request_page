@@ -23,6 +23,12 @@ const List<PermissionData> _kPermission = [
   ),
 ];
 
+const CustomText _kCustomText = CustomText(
+  permissionViewHeaderText: 'The following permissions are required to use the application.',
+  permissionRequestButtonText: 'NEXT',
+  popupTextWhenPermissionDenied: 'To use the application, you must grant the following permissions: ',
+);
+
 void main() => runApp(const ExampleApp());
 
 class ExampleApp extends StatelessWidget {
@@ -67,6 +73,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: PermissionRequestPage(
         permissions: _kPermission,
+        customText: _kCustomText,
         initFunction: _initFunction,
         nextPage: Container(),
       ),

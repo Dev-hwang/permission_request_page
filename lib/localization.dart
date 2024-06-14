@@ -141,9 +141,9 @@ const Map<String, dynamic> _english = {
   'permissionViewHeaderText': 'The following permissions are required to use the application.',
   'permissionRequestButtonText': 'NEXT',
   'msgWhenPermissionDenied': 'To use the application, you must grant the following permissions: ',
-  'appInitializationErrMsg': 'The app could not be started because the app initialization failed.',
+  'appInitializationErrMsg': 'The app cannot be started because the app initialization failed.',
   'dialogRetryButtonText': 'Retry',
   'dialogExitButtonText': 'Exit',
-  'dialogPositiveButtonText': 'OK',
+  'dialogPositiveButtonText': 'Confirm',
   'dialogNegativeButtonText': 'Cancel',
 };

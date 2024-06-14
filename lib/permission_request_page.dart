@@ -8,11 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'localization.dart';
+import 'models/custom_text.dart';
 import 'models/init_result.dart';
 import 'models/permission_data.dart';
 import 'models/permission_type.dart';
 import 'permission_request_page_utils.dart';
 
+export 'models/custom_text.dart';
 export 'models/init_result.dart';
 export 'models/permission_data.dart';
 export 'models/permission_type.dart';
@@ -34,6 +36,7 @@ class PermissionRequestPage extends StatefulWidget {
   const PermissionRequestPage({
     Key? key,
     required this.permissions,
+    this.customText,
     this.appIconAssetPath,
     this.requestMessageStyle,
     this.permissionIconColor,
@@ -49,6 +52,9 @@ class PermissionRequestPage extends StatefulWidget {
 
   /// List of permissions to request.
   final List<PermissionData> permissions;
+
+  /// The text to be displayed on the permission request screen.
+  final CustomText? customText;
 
   /// App icon asset path to display in view header and splash view.
   final String? appIconAssetPath;
@@ -151,7 +157,8 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
       }
 
       final contentBuffer = StringBuffer(
-          Localization.dictionary['msgWhenPermissionDenied'].toString());
+          widget.customText?.popupTextWhenPermissionDenied ??
+              Localization.dictionary['msgWhenPermissionDenied']);
       contentBuffer.write('[');
       final deniedPermissions = result.deniedPermissions;
       for (var i = 0; i < result.deniedPermissions.length; i++) {
@@ -348,8 +355,8 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: Text(
-            Localization.dictionary['permissionViewHeaderText'] ??
-                'The following permissions are required to use the application.',
+            widget.customText?.permissionViewHeaderText ??
+                Localization.dictionary['permissionViewHeaderText'],
             style: Theme.of(context)
                 .textTheme
                 .titleLarge
@@ -430,7 +437,8 @@ class _PermissionRequestPageState extends State<PermissionRequestPage>
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         child: Text(
-          Localization.dictionary['permissionRequestButtonText'] ?? 'NEXT',
+          widget.customText?.permissionRequestButtonText ??
+              Localization.dictionary['permissionRequestButtonText'],
           style: Theme.of(context).textTheme.labelLarge,
         ),
         onPressed: () => _requestPermissions(_filteredPermissions),
