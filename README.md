@@ -11,7 +11,7 @@ To use this plugin, add `permission_request_page` as a [dependency in your pubsp
 
 ```yaml
 dependencies:
-  permission_request_page: ^1.0.0
+  permission_request_page: ^2.0.0
 ```
 
 ## How to use
